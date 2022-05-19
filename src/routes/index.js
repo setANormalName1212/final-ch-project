@@ -5,5 +5,15 @@ router.get("/", (req, res) => {
     res.render("index")
 })
 
+// Register
+router.post("/register", (req, res) => {
+    
+})
+
+// Log In
+router.post("/login", (req, res) => {
+
+})
+
 
 module.exports = router
