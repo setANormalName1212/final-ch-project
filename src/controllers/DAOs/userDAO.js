@@ -1,5 +1,5 @@
 const userDB = require("../../models/User")
-const { userDTO } = require("../../models/DTOs")
+const { userDTO, userDTO } = require("../../models/DTOs")
 
 // resources
 const bcrypt = require("bcrypt")
@@ -20,9 +20,22 @@ class userDAO {
         }
     }
 
-    async getOne(id) {
+    async getOneById(id) {
         try {
             const user = await userDB.findById(id)
+            const userDto = new userDTO(user)
+            return userDto
+        } catch(e) {
+            throw e
+        }
+    }
+
+    async getByEmail(email) {
+        try {
+            const user = await userDB.findOne({ email: email})
+                .then(res => {
+                    return res
+                })
             const userDto = new userDTO(user)
             return userDto
         } catch(e) {
@@ -50,6 +63,7 @@ class userDAO {
             })
             
             newUser.save()
+            return true
         } catch(e) {
             throw e
         }

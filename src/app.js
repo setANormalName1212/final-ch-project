@@ -3,6 +3,11 @@ const path = require("path")
 const app = express()
 require("dotenv").config()
 
+// cookies
+const cookiesParser = require("cookie-parser")
+
+app.use(cookiesParser())
+
 // EJS
 app.set("views", path.join(__dirname, "views"))
 app.set("view engine", "ejs")

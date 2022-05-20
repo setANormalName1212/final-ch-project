@@ -1,10 +1,10 @@
 class userDTO {
-    constructor(data) {
+    constructor(data, cartID) {
         this.name = data.name
         this.email =  data.email
         this.password = data.password
         this.isBlock = data.isBlock
-        this.cartID = data.cartID
+        this.cartID = cartID
     }
 }
 

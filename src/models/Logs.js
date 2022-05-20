@@ -4,8 +4,9 @@ log4js.configure({
         consoleLogger: { type: "console" }
     },
     categories: {
-        default: { appenders: ["consoleLogger"], level: "trace"}
+        default: { appenders: ["consoleLogger"], level: "trace"},
+        console: { appenders: ["consoleLogger"], level: "trace"}
     }
 })
 
-module.exports
+module.exports = log4js
