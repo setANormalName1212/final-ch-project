@@ -22,11 +22,19 @@ mongoose.connect(process.env.MONGO_URI, {
 
 // routes
 const index = require("./routes/index")
+const user = require("./routes/user")
+const product = require("./routes/product")
+const cart = require("./routes/cart")
 
 app.use("/", index)
+app.use("/", user)
+app.use("/", product)
+app.use("/", cart)
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+
+
 
 // Server listening
 const cluster = require("cluster")

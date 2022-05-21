@@ -1,5 +1,8 @@
 const userDB = require("../../models/User")
-const { userDTO, userDTO } = require("../../models/DTOs")
+const cartDB = require("../../models/Cart")
+
+//
+const { userDTO } = require("../../models/DTOs")
 
 // resources
 const bcrypt = require("bcrypt")
@@ -55,15 +58,19 @@ class userDAO {
                     })
                 })
             }
+            const cart = new cartDB()
 
-            const newUser = new userDB({
-                name: user.name,
-                email: user.email,
-                password: cryptPassword
+            cart.save((err, res) => {
+                const newUser = new userDB({
+                    name: user.name,
+                    email: user.email,
+                    password: cryptPassword,
+                    cartID: res.id
+                })
+                
+                newUser.save()
+                return true
             })
-            
-            newUser.save()
-            return true
         } catch(e) {
             throw e
         }
@@ -71,8 +78,11 @@ class userDAO {
 
     async deleteOne(id) {
         try {
-            await userDB.deleteOne(id)
-                .then(console.log("Product deleted"))
+            return await userDB.findById(id)
+                .then(res => {
+                    cartDB.deleteOne(res.cartID)
+                    userDB.deleteOne(id)
+                })
         } catch(e) {
             throw e
         }
@@ -95,6 +105,6 @@ class userDAO {
     }
 }
 
-const user = new userDAO
+const user = new userDAO()
 
 module.exports = user

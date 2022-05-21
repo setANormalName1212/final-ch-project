@@ -2,17 +2,24 @@ const express = require("express")
 const router = express.Router()
 
 // controllers
-const { register, login } = require("../controllers/user-controller")
+const { index, main, edit, config, dashboard, product } = require("../controllers/index-controller")
 
-router.get("/", (req, res) => {
-    res.render("index")
-})
+// Index
+router.get("/", index)
 
-// Register
-router.post("/register", register)
+// Main
+router.get("/main", main)
 
-// Log In
-router.post("/login", login)
+// Config
+router.get("/config", edit)
+    
+// Edit
+router.get("/edit", config)
 
+// Dashboard
+router.get("/dashboard", dashboard)
+
+// Product
+router.get("/product", product)
 
 module.exports = router

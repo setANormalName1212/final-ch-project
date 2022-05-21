@@ -75,11 +75,12 @@ async function login(req, res) {
 }
 
 async function deleteUser(req, res) {
-    
+    await userDAO.deleteOne(res.cookies.user)
 }
 
 
 module.exports = {
     register,
-    login
+    login,
+    deleteUser
 }

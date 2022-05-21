@@ -41,11 +41,15 @@ class productDAO {
         return productDB.deleteOne(id)
     }
 
-    deleteAll() {
-
+    async deleteAll() {
+        return await productDB.deleteMany()
     }
 
     updateOne(id, updateProduct) {
         
     }
 }
+
+const product = new productDAO()
+
+module.exports = product
