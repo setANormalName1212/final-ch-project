@@ -8,8 +8,8 @@ async function index(req, res) {
 }
 
 async function main(req, res) {
-    const products = productDAO.getAll()
-    const cart = cartDAO.getOne(req.cookies.user)
+    const products = await productDAO.getAll()
+    const cart = await cartDAO.getOne(req.cookies.user)
     res.render("main", {
         products,
         cart
@@ -31,14 +31,14 @@ async function config(req, res) {
 }
 
 async function dashboard(req, res) {
-    const products = productDAO.getAll()
+    const products = await productDAO.getAll()
     res.render("dashboard", {
         products
     })
 }
 
 async function product(req, res) {
-    const product = productDAO.getOne(req.params.id)
+    const product = await productDAO.getOne(req.params.id)
     res.render("product", {
         product
     })

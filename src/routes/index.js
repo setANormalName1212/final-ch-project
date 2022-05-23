@@ -20,6 +20,6 @@ router.get("/edit", config)
 router.get("/dashboard", dashboard)
 
 // Product
-router.get("/product", product)
+router.get("/product/view/:id", product)
 
 module.exports = router

@@ -15,6 +15,9 @@ const productSchema = new Schema({
     stock: {
         default: 1,
         type: Number
+    },
+    messageID: {
+        type: String
     }
 })
 

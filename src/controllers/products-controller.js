@@ -1,6 +1,13 @@
 // DAO
 const productDAO = require("./DAOs/productDAO")
 
+async function getProduct(req, res) {
+    const product = productDAO.getOne(req.params.id)
+    res.render("product", {
+        product
+    })
+}
+
 async function newProduct(req, res) {
     const product = req.body
     productDAO.newProduct(product)
@@ -21,5 +28,6 @@ async function deleteProduct(req, res) {
 module.exports = {
     newProduct,
     editProduct,
-    deleteProduct
+    deleteProduct,
+    getProduct
 }

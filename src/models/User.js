@@ -18,7 +18,10 @@ const userSchema = new Schema({
         type: Boolean,
         default: false
     },
-    cartID: String
+    cartID: {
+        required: true,
+        type: String
+    }
 })
 
 module.exports = mongoose.model("users", userSchema)

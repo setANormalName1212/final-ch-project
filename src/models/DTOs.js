@@ -1,15 +1,17 @@
 class userDTO {
     constructor(data, cartID) {
+        this.id = data.id
         this.name = data.name
         this.email =  data.email
         this.password = data.password
-        this.isBlock = data.isBlock
+        this.isBlock = false
         this.cartID = cartID
     }
 }
 
 class productDTO {
     constructor(data) {
+        this.id = data.id
         this.title = data.title
         this.price = data.price
         this.description = data.description

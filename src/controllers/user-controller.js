@@ -35,12 +35,7 @@ async function register(req, res) {
         } else {
             const userDto = new userDTO(req.body)
             userDAO.newUser(userDto)
-                .then(res => {
-                    if(res) {
-                        res.redirect("/main")
-                        loggers.info('New registered user')
-                    }
-                })
+            res.redirect("/main")
         }
     }
 }
@@ -58,9 +53,9 @@ async function login(req, res) {
         })
     } else {
         await userDAO.getByEmail(email)
-            .then(res => {
-                if(res.email) {
-                    res.cookie("user", res.id)
+            .then(result => {
+                if(result.email) {
+                    res.cookie("user", result.id)
                     res.redirect('/main')
                 } else {
                     errors.push({ msg: 'User dont exist' })

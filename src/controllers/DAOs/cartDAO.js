@@ -1,13 +1,18 @@
 const cartDB = require("../../models/Cart")
+const productDB = require("../../models/Product")
+const userDB = require("../../models/User")
 
 // cartDTO
 const cartDTO = require("../../models/DTOs")
 
 class cartDAO {
     async getOne(id) {
-        return await cartDB.findById(id)
-            .then(cart => {
-                return productDB.find({ _id: { $in: cart.productIDs } })
+        userDB.findById(id)
+            .then(res => {
+                cartDB.findById(res.cartID)
+                    .then(cart => {
+                        return productDB.find({ _id: { $in: cart.productIDs } })
+                    })
             })
     }
 
@@ -18,15 +23,6 @@ class cartDAO {
     async add(cartID, productID, quantity) {
         await cartDB.updateOne({ _id: cartID }, { $push: { productIDs: productID } })
     }
-
-    async deleteAll() {
-
-    }
-
-    async updateOne() {
-        
-    }
-
 }
 
 // cartDAO

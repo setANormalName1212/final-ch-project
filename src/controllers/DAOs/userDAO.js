@@ -36,9 +36,6 @@ class userDAO {
     async getByEmail(email) {
         try {
             const user = await userDB.findOne({ email: email})
-                .then(res => {
-                    return res
-                })
             const userDto = new userDTO(user)
             return userDto
         } catch(e) {
@@ -48,29 +45,30 @@ class userDAO {
 
     async newUser(user) {
         try {
-            const cryptPassword = () => {
+            
                 bcrypt.genSalt(10, (err, salt) => {
                     bcrypt.hash(user.password, salt, (err, hash) => {
                         if(err) throw err
 
                         // hash
                         user.password = hash
-                    })
-                })
-            }
-            const cart = new cartDB()
+
+                        const cart = new cartDB()
 
             cart.save((err, res) => {
                 const newUser = new userDB({
                     name: user.name,
                     email: user.email,
-                    password: cryptPassword,
-                    cartID: res.id
+                    password: user.password,
+                    cartID: cart.id
                 })
                 
                 newUser.save()
-                return true
+                console.log(newUser.id)
             })
+                    })
+                })
+            
         } catch(e) {
             throw e
         }

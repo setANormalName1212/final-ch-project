@@ -23,6 +23,7 @@
         <h2>Stock</h2>
         <input type="number" name="stock" id="">
     </label>
+    <button type="submit">Add product</button>
 </form>
 
 <table>
@@ -43,9 +44,9 @@
                 <td><%= products[i].price %> </td>
                 <td><%= products[i].stock %> </td>
                 <td>
-                    <a href="#">View product</a>
-                    <a href="#">Edit product</a>
-                    <a href="#">Delete product</a>
+                    <a href="/product/view/<%= products[i].id %> ">View product</a>
+                    <a href="/product/edit/<%= products[i].id %>">Edit product</a>
+                    <a href="/product/delete/<%= products[i].id %>">Delete product</a>
                 </td>
             </tr>
         <% } %> 
