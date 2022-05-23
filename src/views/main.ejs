@@ -2,4 +2,30 @@
 
 <h1>Main</h1>
 
+<table>
+    <thead>
+        <tr>
+            <th>Nº</th>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Operation</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% for(let i = 0; i < products.length; i++) { %>
+            <tr>
+                <td><%= i + 1 %></td>
+                <td><%= products[i].title %> </td>
+                <td><%= products[i].price %> </td>
+                <td><%= products[i].description %> </td>
+                <td>
+                    <a href="#">Add to cart</a>
+                    <a href="#">View product</a>
+                </td>
+            </tr>
+        <% } %>
+    </tbody>
+</table>
+
 <%- include("partials/footer") %> 

@@ -1,5 +1,72 @@
 <%- include("partials/header") %> 
 
+<%- include("partials/messages") %>
 
+<h1>Hola mundo</h1>
+
+<button id="button"></button>
+
+<article id="art"></article>
+
+<script>
+    const login = `
+            <h1>Log In</h1>
+            <form action="/user/login" method="POST">
+                <label>
+                    <h2>Enter your email</h2>
+                    <input type="email" name="email">
+                </label>
+                <label>
+                    <h2>Enter your password</h2>
+                    <input type="password" name="password">    
+                </label>
+                <button type="submit">Log In</button>
+            </form>
+            `
+    
+    const register = `
+    <h1>Register</h1>
+    <form action="/user/register" method="post">
+        <label>
+            <h2>Your name</h2>
+            <input type="text" name="name">    
+        </label>
+        <label>
+            <h2>Your email</h2>  
+            <input type="email" name="email">  
+        </label>
+        <label>
+            <h2>Your password</h2>
+            <input type="password" name="password">
+        </label>
+        <button type="submit">Register</button>
+    </form>
+    `
+
+let array = [login, register]
+let index = 0
+
+let btn = document.getElementById("button")
+let art = document.getElementById("art")
+
+window.addEventListener("DOMContentLoaded", () => {
+    btn.innerHTML = "register"
+    art.innerHTML = array[index]
+})
+
+btn.addEventListener("click", () => {
+    index++
+    if(index > array.length - 1) {
+        index = 0
+    }
+    if(index === 0) {
+        btn.innerHTML = "register"
+    } if(index === 1) {
+        btn.innerHTML = "login"
+    }
+    art.innerHTML = array[index]
+})
+
+</script>
 
 <%- include("partials/footer") %> 

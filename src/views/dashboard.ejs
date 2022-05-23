@@ -1,5 +1,55 @@
 <%- include("partials/header") %> 
 
-<form action="/dashboard/addProduct" method="post"></form>
+<h1>Dashboard</h1>
+
+<form action="/product/new" method="post">
+    <label for="">
+        <h2>Title</h2>
+        <input type="text" name="title">
+    </label>
+    <label for="">
+        <h2>Price</h2>
+        <input type="number" name="price" id="">
+    </label>
+    <label for="">
+        <h2>Description</h2>
+        <input type="text" name="description">
+    </label>
+    <label for="">
+        <h2>Thumbnail</h2>
+        <input type="image" src="" alt="">
+    </label>
+    <label for="">
+        <h2>Stock</h2>
+        <input type="number" name="stock" id="">
+    </label>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Nº</th>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Operaiton</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% for(let i = 0; i < products.length; i++) { %>
+            <tr>
+                <td><%= i + 1 %> </td>
+                <td><%= products[i].title %> </td>
+                <td><%= products[i].price %> </td>
+                <td><%= products[i].stock %> </td>
+                <td>
+                    <a href="#">View product</a>
+                    <a href="#">Edit product</a>
+                    <a href="#">Delete product</a>
+                </td>
+            </tr>
+        <% } %> 
+    </tbody>
+</table>
 
 <%- include("partials/footer") %> 

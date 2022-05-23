@@ -2,18 +2,13 @@ const express = require("express")
 const router = express.Router()
 
 // user controller
-const { register, login } = require("../controllers/user-controller")
+const { register, login, deleteUser, editUser } = require("../controllers/user-controller")
 
 // cookies
 
+router.get("/user/delete", deleteUser)
 
-router.get("/user/delete", (req, res) => {
-
-})
-
-router.put("/user/edit", (req, res) => {
-    
-})
+router.put("/user/edit", editUser)
 
 router.post("/user/login", login)
 

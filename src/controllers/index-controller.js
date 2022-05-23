@@ -1,25 +1,47 @@
+// DAOs
+const productDAO = require("../controllers/DAOs/productDAO")
+const cartDAO = require("../controllers/DAOs/cartDAO")
+const userDAO = require("../controllers/DAOs/userDAO")
+
 async function index(req, res) {
     res.render("index")
 }
 
 async function main(req, res) {
-    res.render("main")
+    const products = productDAO.getAll()
+    const cart = cartDAO.getOne(req.cookies.user)
+    res.render("main", {
+        products,
+        cart
+    })
 }
 
 async function edit(req, res) {
-    res.render("edit")
+    const product = productDAO.getOne(req.params.id)
+    res.render("edit", {
+        product
+    })
 }
 
 async function config(req, res) {
-    res.render("config")
+    const user = userDAO.getOneById(req.cookies.user)
+    res.render("config", {
+        user
+    })
 }
 
 async function dashboard(req, res) {
-    res.render("dashboard")
+    const products = productDAO.getAll()
+    res.render("dashboard", {
+        products
+    })
 }
 
 async function product(req, res) {
-    res.render("product")
+    const product = productDAO.getOne(req.params.id)
+    res.render("product", {
+        product
+    })
 }
 
 module.exports = {

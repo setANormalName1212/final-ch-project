@@ -8,7 +8,9 @@ async function newProduct(req, res) {
 }
 
 async function editProduct(req, res) {
-
+    const product = req.body
+    productDAO.updateOne(id, product)
+    res.redirect("/dashboard")
 }
 
 async function deleteProduct(req, res) {

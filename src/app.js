@@ -2,10 +2,13 @@ const express = require("express")
 const path = require("path")
 const app = express()
 require("dotenv").config()
-
-// cookies
 const cookiesParser = require("cookie-parser")
 
+// settings
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+
+// cookies
 app.use(cookiesParser())
 
 // EJS
@@ -30,11 +33,6 @@ app.use("/", index)
 app.use("/", user)
 app.use("/", product)
 app.use("/", cart)
-
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
-
-
 
 // Server listening
 const cluster = require("cluster")
