@@ -11,10 +11,10 @@ router.get("/", index)
 router.get("/main", main)
 
 // Config
-router.get("/config", edit)
+router.get("/config", config)
     
 // Edit
-router.get("/edit", config)
+router.get("/edit/:id", edit)
 
 // Dashboard
 router.get("/dashboard", dashboard)

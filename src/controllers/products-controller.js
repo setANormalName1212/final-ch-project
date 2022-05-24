@@ -10,19 +10,20 @@ async function getProduct(req, res) {
 
 async function newProduct(req, res) {
     const product = req.body
-    productDAO.newProduct(product)
+    await productDAO.newProduct(product)
     res.redirect("/dashboard")
 }
 
 async function editProduct(req, res) {
     const product = req.body
-    productDAO.updateOne(id, product)
+    await productDAO.updateOne(id, product)
     res.redirect("/dashboard")
 }
 
 async function deleteProduct(req, res) {
     const id = req.params.id
-    productDAO.deleteOne(id)
+    await productDAO.deleteOne(id)
+    res.redirect("/dashboard")
 }
 
 module.exports = {

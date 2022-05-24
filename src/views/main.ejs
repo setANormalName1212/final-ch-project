@@ -20,12 +20,37 @@
                 <td><%= products[i].price %> </td>
                 <td><%= products[i].description %> </td>
                 <td>
-                    <a href="#">Add to cart</a>
-                    <a href="#">View product</a>
+                    <a href="/cart/add/<%= products[i].id %> ">Add to cart</a>
+                    <a href="/product/view/<%= products[i].id %> ">View product</a>
                 </td>
             </tr>
         <% } %>
     </tbody>
 </table>
+
+<section>
+    <table>
+        <thead>
+            <tr>
+                <th>Nº</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Operations</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(let i = 0; i < cart.length; i++) { %>
+                <tr>
+                    <td><%= i + 1 %> </td>
+                    <td><%= cart[i].product %> </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            <% } %>  
+        </tbody>
+    </table>
+</section>
 
 <%- include("partials/footer") %> 

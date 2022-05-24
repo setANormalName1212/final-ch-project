@@ -9,18 +9,24 @@ async function index(req, res) {
 
 async function main(req, res) {
     const products = await productDAO.getAll()
-    const cart = await cartDAO.getOne(req.cookies.user)
-    res.render("main", {
-        products,
-        cart
-    })
+    await cartDAO.getOne(req.cookies.user)
+        .then(cart => {
+            res.render("main", {
+                products,
+                cart
+            })
+        })
+    
 }
 
 async function edit(req, res) {
-    const product = productDAO.getOne(req.params.id)
-    res.render("edit", {
-        product
-    })
+    const { id } = req.params
+    await productDAO.getOne(id)
+        .then(product => {
+            res.render("edit", {
+                product
+            })
+        })
 }
 
 async function config(req, res) {

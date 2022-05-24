@@ -7,8 +7,8 @@ const { addProduct, pullProduct } = require("../controllers/cart-controller")
 // cookies
 const { cookies } = require("../controllers/cookies/cookies")
 
-router.post("/cart/add", cookies, addProduct)
+router.get("/cart/add/:id", cookies, addProduct)
 
-router.get("/cart/delete", cookies, pullProduct)
+router.get("/cart/delete/:id", cookies, pullProduct)
 
 module.exports = router

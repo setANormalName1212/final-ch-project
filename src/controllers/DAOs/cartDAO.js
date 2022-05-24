@@ -7,11 +7,11 @@ const cartDTO = require("../../models/DTOs")
 
 class cartDAO {
     async getOne(id) {
-        userDB.findById(id)
+        return await userDB.findById(id)
             .then(res => {
-                cartDB.findById(res.cartID)
+                return cartDB.findById(res.cartID)
                     .then(cart => {
-                        return productDB.find({ _id: { $in: cart.productIDs } })
+                        return cart.productIDs
                     })
             })
     }
@@ -21,7 +21,9 @@ class cartDAO {
     }
 
     async add(cartID, productID, quantity) {
-        await cartDB.updateOne({ _id: cartID }, { $push: { productIDs: productID } })
+        if(!quantity) {
+            await cartDB.updateOne({ _id: cartID }, { $push: { productIDs: { product: productID, quantity: 1 } } })
+        }
     }
 }
 
