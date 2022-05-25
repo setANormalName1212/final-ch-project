@@ -40,6 +40,8 @@ app.use("/", product)
 app.use("/", cart)
 
 // Socket
+const chatDAO = require("./controllers/DAOs/chatDAO")
+
 io.on('connection', (socket) => {
     console.log('user connected')
     socket.on('disconnect', () => {
@@ -47,6 +49,7 @@ io.on('connection', (socket) => {
     })
     socket.on('chat message', (msg) => {
         io.emit('chat message', msg)
+        chatDAO.msg(msg)
     })
 })
 

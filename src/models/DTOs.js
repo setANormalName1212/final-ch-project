@@ -17,6 +17,7 @@ class productDTO {
         this.description = data.description
         this.thumbnail = data.thumbnail
         this.stock = data.stock
+        this.chatID = data.chatID
     }
 }
 

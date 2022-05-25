@@ -1,4 +1,5 @@
 const productDB = require("../../models/Product")
+const chatDB = require("../../models/Chat")
 const { productDTO } = require("../../models/DTOs")
 
 class productDAO {
@@ -23,15 +24,19 @@ class productDAO {
 
     newProduct(product) {
         try {
-            const newProduct = new productDB({
-                title: product.title,
-                price: product.price,
-                description: product.description,
-                thumbnail: product.thumbnail,
-                stock: product.stock
+            const chat = new chatDB()
+            chat.save((err, res) => {
+                const newProduct = new productDB({
+                    title: product.title,
+                    price: product.price,
+                    description: product.description,
+                    thumbnail: product.thumbnail,
+                    stock: product.stock,
+                    chatID: res.id
+                })
+    
+                newProduct.save()
             })
-
-            newProduct.save()
         } catch (e) {
             throw e
         }
