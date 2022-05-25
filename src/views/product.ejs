@@ -2,17 +2,50 @@
 
 <%- include("partials/header") %> 
 
-<h1>Product</h1>
-
-<article>
-    <h2><%= product.title %> </h2>
-    <p><%= product.description %> </p>
-    <h3><%= product.price %> </h3>
-    <h3><%= product.stock %> </h3>
+<article class="card mb-3" style="max-width: 20rem;">
+    <div class="card-header">
+        <h2 class="card-title"><%= product.title %> </h2>
+    </div>
+    <div class="card-body">
+        <p class="card-text"><%= product.description %> </p>
+        <div>
+            <h4>Price: <%= product.price %> </h4>
+            <h4>Stock: <%= product.stock %> </h4>
+        </div>
+    </div>
 </article>
 
-<section>
-    
+<!--PRODUCT CHAT-->
+<section class="">
+    <div id="msgs"></div>
+    <form action="" id="form">
+        <input type="text" name="" id="input">
+        <button type="submit">Send</button>
+    </form>
 </section>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io();
+
+  let msgs = document.getElementById("msgs")
+  let form = document.getElementById("form")
+  let input = document.getElementById("input")
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault()
+    if(input.value) {
+        socket.emit('chat message', input.value)
+        input.value = ""
+    }
+  })
+
+  socket.on('chat message', (msg) => {
+    let item = document.createElement("p")
+    item.textContent = msg
+    msgs.appendChild(item)
+    
+  })
+</script>
 
 <%- include("partials/footer") %> 

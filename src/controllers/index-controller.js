@@ -30,7 +30,7 @@ async function edit(req, res) {
 }
 
 async function config(req, res) {
-    const user = userDAO.getOneById(req.cookies.user)
+    const user = await userDAO.getOneById(req.cookies.user)
     res.render("config", {
         user
     })

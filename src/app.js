@@ -3,6 +3,11 @@ const path = require("path")
 const app = express()
 require("dotenv").config()
 const cookiesParser = require("cookie-parser")
+const http = require("http")
+const server = http.createServer(app)
+const { Server } = require("socket.io")
+const io = new Server(server)
+
 
 // settings
 app.use(express.json())
@@ -34,12 +39,23 @@ app.use("/", user)
 app.use("/", product)
 app.use("/", cart)
 
+// Socket
+io.on('connection', (socket) => {
+    console.log('user connected')
+    socket.on('disconnect', () => {
+        console.log("user disconnected")
+    })
+    socket.on('chat message', (msg) => {
+        io.emit('chat message', msg)
+    })
+})
+
 // Server listening
 const cluster = require("cluster")
 const numCPUs = require('os').cpus().length
 const PORT = process.env.PORT || 8080
 
-if(cluster.isMaster) {
+/*if(cluster.isMaster) {
     console.log(`Master ${process.pid} is running`)
 
     // workers
@@ -54,5 +70,9 @@ if(cluster.isMaster) {
         app.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`)
     })
-}
+}*/
 
+
+server.listen(PORT, () => {
+    console.log(`Server running on port: ${PORT}`)
+})

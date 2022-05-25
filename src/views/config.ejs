@@ -1,15 +1,17 @@
 <%- include("partials/header") %> 
 
+<%- include("partials/nav") %> 
+
 <h1>Config</h1>
 
-<form action="/user/edit" method="post">
-    <label for="">
+<form action="/user/edit" method="post" class="form-group row">
+    <label for="" class="col-sm-2 col-form-label">
         <h2>Name</h2>
-        <input type="text" name="name" id="">
+        <input type="text" name="name" value="<%= user.name %> ">
     </label>
     <label for="">
         <h2>Email</h2>
-        <input type="email" name="email" id="">
+        <input type="email" name="email" value="<%= user.email %> ">
     </label>
     <label for="">
         <h2>password</h2>

@@ -1,55 +1,55 @@
 <%- include("partials/header") %> 
 
-<h1>Dashboard</h1>
+<%- include("partials/nav") %>
 
-<form action="/product/new" method="post">
-    <label for="">
-        <h2>Title</h2>
-        <input type="text" name="title">
-    </label>
-    <label for="">
-        <h2>Price</h2>
-        <input type="number" name="price" id="">
-    </label>
-    <label for="">
-        <h2>Description</h2>
-        <input type="text" name="description">
-    </label>
-    <label for="">
-        <h2>Thumbnail</h2>
-        <input type="image" src="" alt="">
-    </label>
-    <label for="">
-        <h2>Stock</h2>
-        <input type="number" name="stock" id="">
-    </label>
-    <button type="submit">Add product</button>
-</form>
+<section class="container">
+    <form action="/product/new" method="post" class="col-md-5 row mt-5 mb-5">
+        <label for="" class="m-3">
+            <h3>Title</h3>
+            <input type="text" name="title" autocomplete="off">
+        </label>
+        <label for="" class="m-3">
+            <h3>Price</h3>
+            <input type="number" name="price" id="" autocomplete="off">
+        </label>
+        <label for="" class="m-3">
+            <h3>Description</h3>
+            <input type="text" name="description" autocomplete="off">
+        </label>
+        <label for="" class="m-3">
+            <h3>Stock</h3>
+            <input type="number" name="stock" id="" autocomplete="off">
+        </label>
+        <button type="submit" class="btn btn-outline-success p-2 mt-3">Add product</button>
+    </form>
+</section>
 
-<table>
-    <thead>
-        <tr>
-            <th>Nº</th>
-            <th>Title</th>
-            <th>Price</th>
-            <th>Stock</th>
-            <th>Operaiton</th>
-        </tr>
-    </thead>
-    <tbody>
-        <% for(let i = 0; i < products.length; i++) { %>
+<section>
+    <table class="table">
+        <thead>
             <tr>
-                <td><%= i + 1 %> </td>
-                <td><%= products[i].title %> </td>
-                <td><%= products[i].price %> </td>
-                <td><%= products[i].stock %> </td>
-                <td>
-                    <a href="/product/edit/<%= products[i].id %>">Edit product</a>
-                    <a href="/product/delete/<%= products[i].id %>">Delete product</a>
-                </td>
+                <th>Nº</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Operation</th>
             </tr>
-        <% } %> 
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <% for(let i = 0; i < products.length; i++) { %>
+                <tr>
+                    <td><%= i + 1 %> </td>
+                    <td><%= products[i].title %> </td>
+                    <td><%= products[i].price %> </td>
+                    <td><%= products[i].stock %> </td>
+                    <td>
+                        <a href="/product/edit/<%= products[i].id %>" class="btn btn-outline-info">Edit product</a>
+                        <a href="/product/delete/<%= products[i].id %>" class="btn btn-outline-danger">Delete product</a>
+                    </td>
+                </tr>
+            <% } %> 
+        </tbody>
+    </table>
+</section>
 
 <%- include("partials/footer") %> 
