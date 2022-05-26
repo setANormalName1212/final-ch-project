@@ -12,15 +12,10 @@ async function addProduct(req, res) {
 }
 
 async function pullProduct(req, res) {
-    const user = req.cookies.id
-    const product = {
-        id: req.params.id,
-        quantity: req.body.quantity
-    }
-    await userDAO.getOneById(user)
-        .then(User => {
-            cartDAO.deleteOne(User.cartID, product.id)
-            res.redirect("/main")
+    await userDAO.getOneById(req.cookies.user)
+        .then(user => {
+            cartDAO.deleteOne(user.cartID, req.params.id)
+                .then(res.redirect("/main"))
         })
 }
 

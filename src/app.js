@@ -43,13 +43,12 @@ app.use("/", cart)
 const chatDAO = require("./controllers/DAOs/chatDAO")
 
 io.on('connection', (socket) => {
-    console.log('user connected')
     socket.on('disconnect', () => {
         console.log("user disconnected")
     })
     socket.on('chat message', (msg) => {
         io.emit('chat message', msg)
-        chatDAO.msg(msg)
+        chatDAO.addMsg(msg)
     })
 })
 
@@ -74,7 +73,6 @@ const PORT = process.env.PORT || 8080
         console.log(`Server running on port ${PORT}`)
     })
 }*/
-
 
 server.listen(PORT, () => {
     console.log(`Server running on port: ${PORT}`)

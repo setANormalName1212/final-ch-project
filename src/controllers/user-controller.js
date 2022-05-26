@@ -2,6 +2,9 @@ const { userDTO } = require("../models/DTOs")
 const userDAO = require("./DAOs/userDAO")
 const loggers = require("../models/Logs").getLogger('console')
 
+// token
+const jwt = require("./tokens/token")
+
 async function register(req, res) {
     const { name, email, password } = req.body
     const errors = []
@@ -34,6 +37,10 @@ async function register(req, res) {
             })
         } else {
             const userDto = new userDTO(req.body)
+
+            const access_token = jwt(userDto)
+
+            res.json({ access_token })
             userDAO.newUser(userDto)
             res.redirect("/main")
         }
@@ -55,7 +62,7 @@ async function login(req, res) {
         await userDAO.getByEmail(email)
             .then(result => {
                 if(result.email) {
-                    res.cookie("user", result.id)
+                    res.cookies("user", result.id)
                     res.redirect('/main')
                 } else {
                     errors.push({ msg: 'User dont exist' })
@@ -77,10 +84,15 @@ async function deleteUser(req, res) {
     await userDAO.deleteOne(res.cookies.user)
 }
 
+async function logOut(req, res) {
+    res.redirect("/")
+}
+
 
 module.exports = {
     register,
     login,
     editUser,
-    deleteUser
+    deleteUser,
+    logOut
 }

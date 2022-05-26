@@ -11,13 +11,18 @@ class cartDAO {
             .then(res => {
                 return cartDB.findById(res.cartID)
                     .then(cart => {
-                        return cart.productIDs
+                        return productDB.find({ id: cart.productIDs })
+                            .then(product => {
+                                return product
+                            })
                     })
             })
     }
 
-    async deleteOne(cartID, idProd) {
-        await cartDB.updateOne({ _id: cartID }, { $pull: { productIDs: idProd } })
+    async deleteOne(cartID, id) {
+        await cartDB.updateOne({ _id: cartID }, { $pull: {
+            productIDs: { product: id }
+        }})
     }
 
     async add(cartID, productID, quantity) {
