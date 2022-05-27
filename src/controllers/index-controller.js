@@ -50,11 +50,16 @@ async function product(req, res) {
     })
 }
 
+async function chat(req, res) {
+    res.render("chat")
+}
+
 module.exports = {
     index,
     main,
     edit,
     config,
     dashboard,
-    product
+    product,
+    chat
 }

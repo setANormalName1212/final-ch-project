@@ -62,7 +62,7 @@ async function login(req, res) {
         await userDAO.getByEmail(email)
             .then(result => {
                 if(result.email) {
-                    res.cookies("user", result.id)
+                    res.cookie("user", result.id)
                     res.redirect('/main')
                 } else {
                     errors.push({ msg: 'User dont exist' })

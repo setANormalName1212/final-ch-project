@@ -8,7 +8,6 @@ const server = http.createServer(app)
 const { Server } = require("socket.io")
 const io = new Server(server)
 
-
 // settings
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -39,18 +38,11 @@ app.use("/", user)
 app.use("/", product)
 app.use("/", cart)
 
-// Socket
-const chatDAO = require("./controllers/DAOs/chatDAO")
 
-io.on('connection', (socket) => {
-    socket.on('disconnect', () => {
-        console.log("user disconnected")
-    })
-    socket.on('chat message', (msg) => {
-        io.emit('chat message', msg)
-        chatDAO.addMsg(msg)
-    })
-})
+// socket
+const socket = require("./socket/socket")
+
+socket(io)
 
 // Server listening
 const cluster = require("cluster")

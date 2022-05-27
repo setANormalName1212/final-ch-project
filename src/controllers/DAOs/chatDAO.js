@@ -1,21 +1,21 @@
 const chatDB = require("../../models/Chat")
+const userDB = require("../../models/User")
+
+const date = new Date()
 
 class chatDAO {
-    async addMsg(msg) {
-        const FyH = new Date()
-        await chatDB.updateOne(msg.chatID, { $push: { 
-            messagess: {
-                name: msg.name,
-                txt: msg.txt,
-                time: FyH.getHours() + ":" + (FyH.getMinutes() + 1) + ":" + FyH.getSeconds()
-            }
-         }})
-    }
 
-    async getMsg(chatID) {
-        return await chatDB.findById(chatID)
-            .then(chat => {
-                return chat
+    async addMsg(data) {
+        const user = await userDB.findById(data.userID)
+        await chatDB.find()
+            .then(res => {
+                chatDB.updateOne({ _id: res[0].id}, { $push: { messagess: {
+
+                    email: user.email,
+                    txt: data.txt,
+                    time: date.getHours() + ":" + date.getMinutes()
+                }}})
+                    .then(res)
             })
     }
 }

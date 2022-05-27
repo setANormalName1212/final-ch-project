@@ -21,6 +21,9 @@ const userSchema = new Schema({
     cartID: {
         required: true,
         type: String
+    },
+    chatID: {
+        type: String
     }
 })
 

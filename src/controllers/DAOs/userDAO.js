@@ -62,7 +62,6 @@ class userDAO {
                     password: user.password,
                     cartID: cart.id
                 })
-                
                 newUser.save()
                 console.log(newUser.id)
             })

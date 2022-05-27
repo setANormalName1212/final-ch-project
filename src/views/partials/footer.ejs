@@ -1,2 +1,40 @@
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io()
+
+    const msgForm = document.getElementById("msgForm")
+
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+    
+    function sendMsg(userID, msg) {
+        socket.emit("message", {
+            userID,
+            txt
+        })
+    }
+
+    msgForm.addEventListener("submit", (e) => {
+        e.preventDefault()
+        
+        sendMsg(getCookie("user"), msgForm["txt"].value)
+        msgForm["txt"].value = ""
+    })
+</script>
+
 </body>
+
 </html>
