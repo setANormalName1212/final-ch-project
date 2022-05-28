@@ -1,12 +1,24 @@
+const jwt = require("jsonwebtoken")
+
 async function cookies(req, res, next) {
+    let errors = []
     if(!req.cookies.user) {
-        let errors = []
         errors.push({ msg: 'You need to register first' })
         res.render("index", {
             errors
         })
     } else {
-        next()
+        jwt.verify(req.cookies.user, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+            if(err) {
+                errors.push({ msg: 'Your token dont match' })
+                res.render("index", {
+                    errors
+                })
+            } else {
+                req.user = user
+                next()
+            }
+        })
     }
 }
 

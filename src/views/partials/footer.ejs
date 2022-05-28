@@ -2,8 +2,11 @@
 <script>
     const socket = io()
 
+    // elements
     const msgForm = document.getElementById("msgForm")
+    const output = document.getElementById("output")
 
+    // get Cookie
     function getCookie(cname) {
         let name = cname + "=";
         let decodedCookie = decodeURIComponent(document.cookie);
@@ -23,15 +26,29 @@
     function sendMsg(userID, msg) {
         socket.emit("message", {
             userID,
-            txt
+            txt: msg
         })
     }
 
+    // Send message
     msgForm.addEventListener("submit", (e) => {
         e.preventDefault()
         
         sendMsg(getCookie("user"), msgForm["txt"].value)
         msgForm["txt"].value = ""
+    })
+
+    // Get message
+    socket.on('chat:message', (data) => {
+        data.forEach((item) => {
+            const li = document.createElement("li")
+            li.innerHTML = `
+            <p>${item.email}</p>
+            <p>${item.txt}</p>
+            <p>${item.time}</p>
+            `
+            output.appendChild(li)
+        })
     })
 </script>
 

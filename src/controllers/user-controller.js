@@ -1,9 +1,12 @@
 const { userDTO } = require("../models/DTOs")
 const userDAO = require("./DAOs/userDAO")
 const loggers = require("../models/Logs").getLogger('console')
+const bcrypt = require("bcrypt")
 
-// token
-const jwt = require("./tokens/token")
+// cookies
+
+// jwt
+const jwt = require("jsonwebtoken")
 
 async function register(req, res) {
     const { name, email, password } = req.body
@@ -37,10 +40,8 @@ async function register(req, res) {
             })
         } else {
             const userDto = new userDTO(req.body)
-
-            const access_token = jwt(userDto)
-
-            res.json({ access_token })
+            const accessToken = jwt.sign(userDto.id, process.env.ACCESS_TOKEN_SECRET)
+            res.cookie("user", accessToken)
             userDAO.newUser(userDto)
             res.redirect("/main")
         }
@@ -60,10 +61,14 @@ async function login(req, res) {
         })
     } else {
         await userDAO.getByEmail(email)
-            .then(result => {
-                if(result.email) {
-                    res.cookie("user", result.id)
-                    res.redirect('/main')
+            .then(user => {
+                if(user.email) {
+                    bcrypt.compare(password, user.password, (err, isMatch) => {
+                        if(isMatch) {
+                            res.cookie("user", user.id)
+                            res.redirect("/main")
+                        }
+                    })
                 } else {
                     errors.push({ msg: 'User dont exist' })
                     res.render("index", {
@@ -77,7 +82,7 @@ async function login(req, res) {
 }
 
 async function editUser(req, res) {
-
+    await userDAO.editUser(req.body)
 }
 
 async function deleteUser(req, res) {
@@ -85,6 +90,7 @@ async function deleteUser(req, res) {
 }
 
 async function logOut(req, res) {
+    res.clearCookie("user")
     res.redirect("/")
 }
 

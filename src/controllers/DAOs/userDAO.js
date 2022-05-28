@@ -35,9 +35,10 @@ class userDAO {
 
     async getByEmail(email) {
         try {
-            const user = await userDB.findOne({ email: email})
-            const userDto = new userDTO(user)
-            return userDto
+            return await userDB.findOne({ email: email})
+                .then(user => {
+                    return user
+                })
         } catch(e) {
             throw e
         }
@@ -93,9 +94,18 @@ class userDAO {
         }
     }
 
-    async updateOne(id, user) {
+    async updateOne(id, data) {
         try {
-            await userDB.updateOne(id, user)
+            bcrypt.genSalt(10, (err, salt) => {
+                bcrypt.hash(data.password, salt, (err, hash) => {
+                    if(err) throw err
+
+                    // hash
+                    data.password = hash
+
+                    userDB.updateOne(id, data)
+                })
+            })
         } catch(e) {
             throw e
         }
