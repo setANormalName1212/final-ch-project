@@ -5,6 +5,7 @@ const router = express.Router()
 const { register, login, deleteUser, editUser, logOut } = require("../controllers/user-controller")
 
 // cookies
+const cookies = require("../controllers/cookies/cookies")
 
 router.get("/user/delete", deleteUser)
 

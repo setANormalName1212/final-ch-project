@@ -65,7 +65,9 @@ async function login(req, res) {
                 if(user.email) {
                     bcrypt.compare(password, user.password, (err, isMatch) => {
                         if(isMatch) {
-                            res.cookie("user", user.id)
+                            console.log(user.id)
+                            const accessToken = jwt.sign(user.id, process.env.ACCESS_TOKEN_SECRET)
+                            res.cookie("user", accessToken)
                             res.redirect("/main")
                         }
                     })

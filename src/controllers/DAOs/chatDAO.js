@@ -3,19 +3,24 @@ const userDB = require("../../models/User")
 
 const date = new Date()
 
-class chatDAO {
+// JWT
+const jwt = require("jsonwebtoken")
 
+class chatDAO {
     async addMsg(data) {
-        const user = await userDB.findById(data.userID)
-        await chatDB.find()
-            .then(res => {
-                chatDB.updateOne({ _id: res[0].id}, { $push: { messagess: {
-                    email: user.email,
-                    txt: data.txt,
-                    time: date.getHours() + ":" + date.getMinutes()
-                }}})
-                    .then(res)
-            })
+        jwt.verify(data.userID, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+            userDB.findById(user)
+                .then(User => {
+                    chatDB.find()
+                        .then(chat => {
+                            return chatDB.updateOne({ _id: chat[0].id}, { $push: { messagess: {
+                                email: User.email,
+                                txt: data.txt,
+                                time: date.getHours() + ":" + date.getMinutes()
+                            }}})
+                        })
+                })
+        })
     }
 
     async getChat() {
@@ -23,6 +28,15 @@ class chatDAO {
             .then(res => {
                 return res[0].messagess
             })
+    }
+
+    async sendMsg(data) {
+        return jwt.verify(data.userID, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+            return userDB.findById(user)
+                .then(res => {
+                    return res
+                })
+        })
     }
 }
 

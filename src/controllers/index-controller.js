@@ -8,8 +8,9 @@ async function index(req, res) {
 }
 
 async function main(req, res) {
+    console.log(req.user)
     const products = await productDAO.getAll()
-    await cartDAO.getOne(req.cookies.user)
+    await cartDAO.getOne(req.user)
         .then(cart => {
             res.render("main", {
                 products,
@@ -30,7 +31,7 @@ async function edit(req, res) {
 }
 
 async function config(req, res) {
-    const user = await userDAO.getOneById(req.cookies.user)
+    const user = await userDAO.getOneById(req.user)
     res.render("config", {
         user
     })
@@ -54,6 +55,10 @@ async function chat(req, res) {
     res.render("chat")
 }
 
+async function buy(req, res) {
+    res.render("buy")
+}
+
 module.exports = {
     index,
     main,
@@ -61,5 +66,6 @@ module.exports = {
     config,
     dashboard,
     product,
-    chat
+    chat,
+    buy
 }

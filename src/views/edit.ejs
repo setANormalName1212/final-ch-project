@@ -2,26 +2,28 @@
 
 <h1>Edit</h1>
 
-<form action="/product/edit/<%= product.id %> " method="post">
-    <label for="">
-        <h2>Title</h2>
-        <input type="text" name="title" value="<%= product.title %>" id="">
-    </label>
-    <label for="">
-        <h2>Price</h2>
-        <input type="number" name="price" value="<%= product.price %>" id="">
-    </label>
-    <label for="">
-        <h2>description</h2>
-        <input type="text" name="description" value="<%= product.description %>" id="">
-    </label>
-    <label for="">
-        <h2>Stock</h2>
-        <input type="number" name="stock" value="<%= product.stock %>" id="">
-    </label>
-    <label for="">
-        <h2>Thumbnail</h2>
-    </label>
-</form>
+<section class="w-50 border border-primary">
+    <form action="/product/edit/<%= product.id %> " method="post">
+        <label for="">
+            <h2>Title</h2>
+            <input type="text" name="title" value="<%= product.title %>" id="">
+        </label>
+        <label for="">
+            <h2>Price</h2>
+            <input type="number" name="price" value="<%= product.price %>" id="">
+        </label>
+        <label for="">
+            <h2>description</h2>
+            <input type="text" name="description" value="<%= product.description %>" id="">
+        </label>
+        <label for="">
+            <h2>Stock</h2>
+            <input type="number" name="stock" value="<%= product.stock %>" id="">
+        </label>
+        <label for="">
+            <h2>Thumbnail</h2>
+        </label>
+    </form>
+</section>
 
 <%- include("partials/footer") %> 

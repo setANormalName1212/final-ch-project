@@ -1,0 +1,40 @@
+<%- include("partials/header") %> 
+
+<%- include("partials/nav") %> 
+
+<section class="mt-5 ms-5 mb-5 p-5 border border-primary rounded w-50">
+    <div>
+        <h2>Where do we send your products</h2>
+    </div>
+    <div class="form-group row mt-4">
+        <form action="cart/buy/adress" method="post">
+            <div>
+                <label class="w-100">
+                    <h3>Country</h3>
+                    <input type="text" name="country" class="form-control w-100 border border-secondary" placeholder="country" required>
+                </label>
+            </div>
+            <div class="mt-4">
+                <label class="w-100">
+                    <h3>Province</h3>
+                    <input type="text" name="province" class="form-control w-100 border border-secondary" placeholder="province" required>
+                </label>
+            </div>
+            <div class="mt-4">
+                <label class="w-100">
+                    <h3>Address</h3>
+                    <input type="text" name="address-1" class="form-control w-100 border border-secondary" placeholder="street" required>
+                </label>
+            </div>
+            <div class="mt-4">
+                <label class="w-100">
+                    <h3>Address 2</h3>
+                    <input type="text" name="address-2" class="form-control w-100 border border-secondary" placeholder="height" required>
+                </label>
+            </div>
+            <button type="submit" class="btn btn-success mt-2">Send me the products</button>
+        </form>
+    </div>
+</section>
+
+<%- include("partials/footer") %>

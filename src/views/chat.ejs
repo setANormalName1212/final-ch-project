@@ -3,13 +3,16 @@
 <%- include("partials/nav") %> 
 
 <section>
-    <ul id="output">
-
-    </ul>
-    <form id="msgForm">
-        <textarea name="txt" id="txt" cols="20" rows="5"></textarea>
-        <button type="submit">Send</button>
-    </form>
+    <div class=" h-25 w-50">
+        <ul id="output" class="overflow-auto">
+        </ul>
+    </div>
+    <div>
+        <form id="msgForm" class="position-relative">
+            <input type="text" name="txt" id="txt" class="w-75 pt-3 pb-3">
+            <button type="submit" class="btn btn-primary p-3 h2">Send</button>
+        </form>
+    </div>
 </section>
 
 
