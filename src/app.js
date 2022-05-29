@@ -1,7 +1,7 @@
+require("dotenv").config()
 const express = require("express")
 const path = require("path")
 const app = express()
-require("dotenv").config()
 const cookiesParser = require("cookie-parser")
 const http = require("http")
 const server = http.createServer(app)
