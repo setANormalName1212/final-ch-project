@@ -21,10 +21,8 @@ app.set("view engine", "ejs")
 
 // Mongo Atlas
 const mongoose = require("mongoose")
-console.log(process.env.MONGO_URI)
-mongoose.connect(`${process.env.MONGO_URI}`, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true
+mongoose.connect(process.env.MONGO_URI, {
+    useUnifiedTopology: true
 }, () => {
     console.log('MongoDB connected...')
 })
