@@ -14,7 +14,7 @@ class chatDAO {
                     chatDB.find()
                         .then(chat => {
                             return chatDB.updateOne({ _id: chat[0].id}, { $push: { messagess: {
-                                email: User.email,
+                                email: (User.email === "federicofigueroa011@gmail.com") ? "Admin" : User.email,
                                 txt: data.txt,
                                 time: date.getHours() + ":" + date.getMinutes()
                             }}})

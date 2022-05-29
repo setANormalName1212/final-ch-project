@@ -12,6 +12,19 @@ class productDAO {
         return productsDTO
     }
 
+    async getByCategory(category) {
+        return await productDB.find()
+            .then(products => {
+                const sendProducts = []
+                products.forEach((item) => {
+                    if(item.stock < 50) {
+                        sendProducts.push(item)
+                    }
+                })
+                return sendProducts
+            })
+    }
+
     async getOne(id) {
         try {
             const product = await productDB.findById(id)

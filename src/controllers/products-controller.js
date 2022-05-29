@@ -8,6 +8,13 @@ async function getProduct(req, res) {
     })
 }
 
+async function getProductByCategory(req, res) {
+    productDAO.getByCategory(req.params)
+        .then(result => {
+            res.send(result)
+        })
+}
+
 async function newProduct(req, res) {
     const product = req.body
     await productDAO.newProduct(product)
@@ -30,5 +37,6 @@ module.exports = {
     newProduct,
     editProduct,
     deleteProduct,
-    getProduct
+    getProduct,
+    getProductByCategory
 }

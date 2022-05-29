@@ -16,8 +16,9 @@ function socket(io) {
             chatDAO.addMsg(data)
             chatDAO.sendMsg(data)
                 .then(res => {
+                    const isAdmin = (res.email === "federicofigueroa011@gmail.com") ? "isAdmin": res.email
                     const user = {
-                        email: res.email,
+                        email: isAdmin,
                         txt: data.txt,
                         time: date.getHours() + ":" + date.getMinutes()
                     }

@@ -49,7 +49,7 @@ const cluster = require("cluster")
 const numCPUs = require('os').cpus().length
 const PORT = process.env.PORT || 8080
 
-/*if(cluster.isMaster) {
+if(cluster.isMaster) {
     console.log(`Master ${process.pid} is running`)
 
     // workers
@@ -64,8 +64,8 @@ const PORT = process.env.PORT || 8080
         app.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`)
     })
-}*/
+}
 
-server.listen(PORT, () => {
+/*server.listen(PORT, () => {
     console.log(`Server running on port: ${PORT}`)
-})
+})*/

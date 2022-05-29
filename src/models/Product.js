@@ -16,7 +16,8 @@ const productSchema = new Schema({
         default: 1,
         type: Number
     },
-    chatID: {
+    category: {
+        required: true,
         type: String
     }
 })

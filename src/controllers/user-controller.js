@@ -9,11 +9,11 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 
 async function register(req, res) {
-    const { name, email, password } = req.body
+    const { name, email, phone, password, password2 } = req.body
     const errors = []
 
     // empty input
-    if(!name || !email || !password) {
+    if(!name || !email || !phone || !password || password2) {
         errors.push({ msg: "please fill all fields"})
     }
 
@@ -21,12 +21,18 @@ async function register(req, res) {
         errors.push({ msg: "Password should be at least 6 characters"})
     }
 
+    if(password === password2) {
+        errors.push({ msg: "Password should be equal to Password 2"})
+    }
+
     if(errors.length > 0) {
         res.render("index", {
             errors,
             name,
             email,
-            password
+            phone,
+            password,
+            password2
         })
     } else {
         // validate email
@@ -36,7 +42,9 @@ async function register(req, res) {
                 errors,
                 name,
                 email,
-                password
+                phone,
+                password,
+                password2
             })
         } else {
             const userDto = new userDTO(req.body)

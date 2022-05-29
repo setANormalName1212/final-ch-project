@@ -46,7 +46,6 @@ class userDAO {
 
     async newUser(user) {
         try {
-            
                 bcrypt.genSalt(10, (err, salt) => {
                     bcrypt.hash(user.password, salt, (err, hash) => {
                         if(err) throw err

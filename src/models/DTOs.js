@@ -6,7 +6,6 @@ class userDTO {
         this.password = data.password
         this.isBlock = false
         this.cartID = cartID || data.cartID
-        this.chatID = data.chatID
     }
 }
 

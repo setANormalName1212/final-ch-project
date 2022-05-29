@@ -10,6 +10,10 @@ const userSchema = new Schema({
         required: true,
         type: String
     },
+    phone: {
+        required: true,
+        type: Number
+    },
     password: {
         required: true,
         type: String
@@ -20,9 +24,6 @@ const userSchema = new Schema({
     },
     cartID: {
         required: true,
-        type: String
-    },
-    chatID: {
         type: String
     }
 })
