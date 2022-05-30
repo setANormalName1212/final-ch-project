@@ -55,18 +55,18 @@ class userDAO {
 
                         const cart = new cartDB()
 
-            cart.save((err, res) => {
-                const newUser = new userDB({
-                    name: user.name,
-                    email: user.email,
-                    password: user.password,
-                    cartID: cart.id
-                })
-                newUser.save()
-                console.log(newUser.id)
-            })
+                        cart.save((err, res) => {
+                            const newUser = new userDB({
+                                name: user.name,
+                                email: user.email,
+                                password: user.password,
+                                cartID: cart.id,
+                                phone: user.phone
+                        })
+                        newUser.save()
+                        })
+                        })
                     })
-                })
             
         } catch(e) {
             throw e

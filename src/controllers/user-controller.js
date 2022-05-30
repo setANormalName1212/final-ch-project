@@ -3,11 +3,6 @@ const userDAO = require("./DAOs/userDAO")
 const loggers = require("../models/Logs").getLogger('console')
 const bcrypt = require("bcrypt")
 
-// cookies
-
-// jwt
-const jwt = require("jsonwebtoken")
-
 async function register(req, res) {
     const { name, email, phone, password, password2 } = req.body
     const errors = []
@@ -20,8 +15,7 @@ async function register(req, res) {
     if(password < 6) {
         errors.push({ msg: "Password should be at least 6 characters"})
     }
-
-    if(password.length == password2.length) {
+    if(password !== password2) {
         errors.push({ msg: "Password should be equal to Password 2"})
     }
 
@@ -47,11 +41,8 @@ async function register(req, res) {
                 password2
             })
         } else {
-            const userDto = new userDTO(req.body)
-            const accessToken = jwt.sign(userDto.id, process.env.ACCESS_TOKEN_SECRET)
-            res.cookie("user", accessToken)
-            userDAO.newUser(userDto)
-            res.redirect("/main")
+            userDAO.newUser(req.body)
+            res.redirect("/")
         }
     }
 }
