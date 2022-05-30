@@ -1,9 +1,14 @@
 const orderDB = require("../../models/Order")
 const cartDB = require("../../models/Cart")
+const userDB = require("../../models/User")
 
 class orderDAO {
-    async createOrder(items, email) {
-        await orderDB.find()
+    async createOrder(id, items, email) {
+        return await userDB.findById(id)
+            .then(user => {
+                return user
+            })
+        /*await orderDB.find()
             .then(orders => {
                 const orderLength = orders.length + 1
                 const newOrder = new orderDB({
@@ -14,8 +19,7 @@ class orderDAO {
                 })
 
                 newOrder.save()
-            })
-        
+            })*/
     }
 }
 
