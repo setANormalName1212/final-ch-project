@@ -32,11 +32,13 @@ const index = require("./routes/index")
 const user = require("./routes/user")
 const product = require("./routes/product")
 const cart = require("./routes/cart")
+const order = require("./routes/order")
 
 app.use("/", index)
 app.use("/", user)
 app.use("/", product)
 app.use("/", cart)
+app.use("/", order)
 
 
 // socket
@@ -49,7 +51,7 @@ const cluster = require("cluster")
 const numCPUs = require('os').cpus().length
 const PORT = process.env.PORT || 8080
 
-if(cluster.isMaster) {
+/*if(cluster.isMaster) {
     console.log(`Master ${process.pid} is running`)
 
     // workers
@@ -64,8 +66,8 @@ if(cluster.isMaster) {
         app.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`)
     })
-}
+}*/
 
-/*server.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Server running on port: ${PORT}`)
-})*/
+})
