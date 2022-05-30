@@ -71,6 +71,8 @@ async function login(req, res) {
                             console.log(accessToken)
                             res.cookie("user", accessToken)
                             res.redirect("/main")
+                        } else {
+                            res.redirect("/")
                         }
                     })
                 } else {
