@@ -11,12 +11,11 @@ async function main(req, res) {
     const products = await productDAO.getAll()
     userDAO.getOneById(req.user)
         .then(user => {
-            cartDAO.getOne(req.user)
+            cartDAO.getOne(user.cartID)
                 .then(cart => {
                     res.render("main", {
                         products,
-                        cart,
-                        user
+                        cart
                     })
                 })
         })

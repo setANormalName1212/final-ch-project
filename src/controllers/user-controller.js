@@ -3,6 +3,8 @@ const userDAO = require("./DAOs/userDAO")
 const loggers = require("../models/Logs").getLogger('console')
 const bcrypt = require("bcrypt")
 
+const jwt = require("jsonwebtoken")
+
 async function register(req, res) {
     const { name, email, phone, password, password2 } = req.body
     const errors = []
@@ -66,6 +68,7 @@ async function login(req, res) {
                         if(isMatch) {
                             console.log(user.id)
                             const accessToken = jwt.sign(user.id, process.env.ACCESS_TOKEN_SECRET)
+                            console.log(accessToken)
                             res.cookie("user", accessToken)
                             res.redirect("/main")
                         }

@@ -25,9 +25,8 @@ class userDAO {
 
     async getOneById(id) {
         try {
-            const user = await userDB.findById(id)
-            const userDto = new userDTO(user)
-            return userDto
+            return await userDB.findById(id)
+                .then(res => { return res})
         } catch(e) {
             throw e
         }
@@ -62,9 +61,11 @@ class userDAO {
                                 password: user.password,
                                 cartID: cart.id,
                                 phone: user.phone
-                        })
-                        newUser.save()
-                        })
+                            })
+
+                            // save user
+                            newUser.save()
+                            })
                         })
                     })
             

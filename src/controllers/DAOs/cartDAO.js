@@ -7,15 +7,9 @@ const cartDTO = require("../../models/DTOs")
 
 class cartDAO {
     async getOne(id) {
-        return await userDB.findById(id)
-            .then(res => {
-                return cartDB.findById(res.cartID)
-                    .then(cart => {
-                        return productDB.find({ id: cart.productIDs })
-                            .then(product => {
-                                return product
-                            })
-                    })
+        return await cartDB.findById(id)
+            .then(cart => {
+                return productDB.find({ _id: { $in: cart.productIDs } })
             })
     }
 
