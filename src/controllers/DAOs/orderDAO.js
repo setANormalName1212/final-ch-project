@@ -6,20 +6,20 @@ class orderDAO {
     async createOrder(id, items, email) {
         return await userDB.findById(id)
             .then(user => {
-                return user
-            })
-        /*await orderDB.find()
-            .then(orders => {
-                const orderLength = orders.length + 1
-                const newOrder = new orderDB({
-                    items,
-                    orderN: orderLength,
-                    date: new Date(),
-                    email: email
-                })
+                orderDB.find()
+                    .then(orders => {
+                        const orderLength = orders.length + 1
+                        const newOrder = new orderDB({
+                            items,
+                            orderN: orderLength,
+                            date: new Date(),
+                            email: email
+                        })
 
-                newOrder.save()
-            })*/
+                        newOrder.save()
+                        userDB.updateOne({ _id: user.id}, { $push: { orderIDs: newOrder.id }})
+                    })
+            })
     }
 }
 
