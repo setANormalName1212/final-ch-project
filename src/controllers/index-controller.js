@@ -22,7 +22,7 @@ async function main(req, res) {
 
 async function edit(req, res) {
     const { id } = req.params
-    await productDAO.getOne(id)
+    productDAO.getOne(id)
         .then(product => {
             res.render("edit", {
                 product
