@@ -13,7 +13,7 @@ async function register(req, res) {
     const errors = []
 
     // empty input
-    if(!name || !email || !phone || !password || password2) {
+    if(!name || !email || !phone || !password || !password2) {
         errors.push({ msg: "please fill all fields"})
     }
 
@@ -21,7 +21,7 @@ async function register(req, res) {
         errors.push({ msg: "Password should be at least 6 characters"})
     }
 
-    if(password === password2) {
+    if(password.length == password2.length) {
         errors.push({ msg: "Password should be equal to Password 2"})
     }
 

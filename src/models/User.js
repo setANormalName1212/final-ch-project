@@ -25,6 +25,9 @@ const userSchema = new Schema({
     cartID: {
         required: true,
         type: String
+    },
+    orderIDs: {
+        type: Array
     }
 })
 

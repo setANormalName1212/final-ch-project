@@ -5,7 +5,8 @@ class userDTO {
         this.email =  data.email
         this.password = data.password
         this.isBlock = false
-        this.cartID = cartID || data.cartID
+        this.cartID = cartID || data.cartID,
+        this.orderIDs = data.orderIDs
     }
 }
 

@@ -8,15 +8,19 @@ async function index(req, res) {
 }
 
 async function main(req, res) {
-    console.log(req.user)
     const products = await productDAO.getAll()
-    await cartDAO.getOne(req.user)
-        .then(cart => {
-            res.render("main", {
-                products,
-                cart
-            })
+    userDAO.getOneById(req.user)
+        .then(user => {
+            cartDAO.getOne(req.user)
+                .then(cart => {
+                    res.render("main", {
+                        products,
+                        cart,
+                        user
+                    })
+                })
         })
+    
     
 }
 

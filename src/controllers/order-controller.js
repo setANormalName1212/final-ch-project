@@ -3,8 +3,8 @@ const orderDAO = require("./DAOs/orderDAO")
 
 async function createOrder(req, res) {
     const user = req.user
-    orderDAO(user)
-        .then(algo => res.send(algo))
+    orderDAO.createOrder(user)
+        .then(res.redirect("/main"))
 }
 
 module.exports = {
