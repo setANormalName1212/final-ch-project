@@ -5,11 +5,11 @@ const router = express.Router()
 const { register, login, deleteUser, editUser, logOut } = require("../controllers/user-controller")
 
 // cookies
-const cookies = require("../controllers/cookies/cookies")
+const { cookies } = require("../controllers/cookies/cookies")
 
-router.get("/user/delete", deleteUser)
+router.get("/user/delete", cookies, deleteUser)
 
-router.put("/user/edit", editUser)
+router.post("/user/edit/:id", cookies, editUser)
 
 router.post("/user/login", login)
 

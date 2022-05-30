@@ -45,15 +45,14 @@ class userDAO {
 
     async newUser(user) {
         try {
-                bcrypt.genSalt(10, (err, salt) => {
-                    bcrypt.hash(user.password, salt, (err, hash) => {
-                        if(err) throw err
+            bcrypt.genSalt(10, (err, salt) => {
+                bcrypt.hash(user.password, salt, (err, hash) => {
+                    if(err) throw err
 
-                        // hash
-                        user.password = hash
+                    // hash
+                    user.password = hash
 
-                        const cart = new cartDB()
-
+                    const cart = new cartDB()
                         cart.save((err, res) => {
                             const newUser = new userDB({
                                 name: user.name,
@@ -68,7 +67,6 @@ class userDAO {
                             })
                         })
                     })
-            
         } catch(e) {
             throw e
         }
@@ -102,8 +100,8 @@ class userDAO {
 
                     // hash
                     data.password = hash
-
-                    userDB.updateOne(id, data)
+                    userDB.updateOne({ _id: id}, data)
+                        .then(console.log(data))
                 })
             })
         } catch(e) {

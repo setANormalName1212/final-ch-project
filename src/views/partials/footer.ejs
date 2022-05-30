@@ -39,13 +39,28 @@
         
         sendMsg(getCookie("user"), msgForm["txt"].value)
         socket.on('server:newmessage', item => {
-            output.innerHTML += `
-            <div class="border border-primary">
-                <p>${item.email}</p>
-                <p>${item.txt}</p>
-                <p>${item.time}</p>
-            </div>
-            `
+            if(item.email === "federicofigueroa011@gmail.com") {
+                output.innerHTML += `
+                <div class="m-3 border border-primary rounded w-50 bg-info text-light">
+                <div class="p-3">
+                    <p>Admin</p>
+                    <p>${item.txt}</p>
+                    <p>${item.time}</p>
+                </div>
+                </div>
+                `
+            } else {
+                output.innerHTML += `
+                <div class="m-3 border border-success rounded w-50 bg-success text-light">
+                <div class="p-3">
+                    <p>${item.email}</p>
+                    <p>${item.txt}</p>
+                    <p>${item.time}</p>
+                </div>
+                </div>
+                `
+            }
+            
         })
         msgForm["txt"].value = ""
     })
@@ -53,15 +68,27 @@
     // Get message
     socket.on('server:messages', (data) => {
         data.forEach((item) => {
-            output.innerHTML += `
-            <div class="m-3 border border-primary rounded w-50 bg-info text-light">
+            if(item.email === "federicofigueroa011@gmail.com") {
+                output.innerHTML += `
+                <div class="m-3 border border-primary rounded w-50 bg-info text-light">
+                <div class="p-3">
+                    <p>Admin</p>
+                    <p>${item.txt}</p>
+                    <p>${item.time}</p>
+                </div>
+                </div>
+                `
+            } else {
+                output.innerHTML += `
+                <div class="m-3 border border-success rounded w-50 bg-success text-light">
                 <div class="p-3">
                     <p>${item.email}</p>
                     <p>${item.txt}</p>
                     <p>${item.time}</p>
                 </div>
-            </div>
-            `
+                </div>
+                `
+            }
         })
     })
 </script>

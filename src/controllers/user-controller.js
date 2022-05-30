@@ -86,11 +86,19 @@ async function login(req, res) {
 }
 
 async function editUser(req, res) {
-    await userDAO.editUser(req.body)
+    await userDAO.getOneById(req.user)
+        .then(user => {
+            userDAO.updateOne(user.id, req.body)
+            .then(res.redirect("/main"))
+        })
 }
 
 async function deleteUser(req, res) {
     await userDAO.deleteOne(res.cookies.user)
+        .then(result => {
+            res.clearCookie("user")
+            res.redirect("/")
+        })
 }
 
 async function logOut(req, res) {
