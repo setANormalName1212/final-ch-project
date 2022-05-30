@@ -45,6 +45,7 @@ class productDAO {
                     description: product.description,
                     thumbnail: product.thumbnail,
                     stock: product.stock,
+                    category: product.category,
                     chatID: res.id
                 })
     
@@ -56,15 +57,15 @@ class productDAO {
     }
 
     deleteOne(id) {
-        return productDB.deleteOne(id)
+        return productDB.deleteOne({ _id: id })
     }
 
     async deleteAll() {
         return await productDB.deleteMany()
     }
 
-    updateOne(id, updateProduct) {
-        
+    async updateOne(id, updateProduct) {
+        await productDB.updateOne({ _id: id }, updateProduct)
     }
 }
 

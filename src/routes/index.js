@@ -17,7 +17,7 @@ router.get("/main", cookies, main)
 router.get("/config", cookies, config)
     
 // Edit
-router.get("/edit/:id", cookies, edit)
+router.get("/product/edit/:id", cookies, edit)
 
 // Dashboard
 router.get("/dashboard", cookies, dashboard)

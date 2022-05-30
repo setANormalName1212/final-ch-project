@@ -23,14 +23,14 @@ async function newProduct(req, res) {
 
 async function editProduct(req, res) {
     const product = req.body
-    await productDAO.updateOne(id, product)
-    res.redirect("/dashboard")
+    await productDAO.updateOne(req.params.id, product)
+        .then(res.redirect("/dashboard"))
 }
 
 async function deleteProduct(req, res) {
     const id = req.params.id
     await productDAO.deleteOne(id)
-    res.redirect("/dashboard")
+        .then(res.redirect("/dashboard"))
 }
 
 module.exports = {
