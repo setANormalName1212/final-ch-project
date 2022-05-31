@@ -16,9 +16,28 @@ async function getProductByCategory(req, res) {
 }
 
 async function newProduct(req, res) {
-    const product = req.body
-    await productDAO.newProduct(product)
-    res.redirect("/dashboard")
+    const { title, price, description, stock, category } = req.body
+    const errors = []
+
+    productDAO.getAll()
+        .then(products => {
+            // Fill
+            if( !title || !price || !description || !stock || !category ) {
+                errors.push({ msg: "Fill all fields" })
+            }
+    
+            // errors length
+            if(errors.length > 0) {
+                res.render("dashboard", {
+                errors,
+                products
+            })
+            } else {
+            const product = req.body
+            productDAO.newProduct(product)
+            res.redirect("/dashboard")
+            }
+        })
 }
 
 async function editProduct(req, res) {
