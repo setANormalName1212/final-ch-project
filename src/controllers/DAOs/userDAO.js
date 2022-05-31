@@ -101,7 +101,6 @@ class userDAO {
                     // hash
                     data.password = hash
                     userDB.updateOne({ _id: id}, data)
-                        .then(console.log(data))
                 })
             })
         } catch(e) {

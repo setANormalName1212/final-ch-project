@@ -86,10 +86,31 @@ async function login(req, res) {
 }
 
 async function editUser(req, res) {
-    await userDAO.getOneById(req.user)
+    const { name, email, password } = req.body
+    const errors = []
+        
+    userDAO.getOneById(req.user)
         .then(user => {
-            userDAO.updateOne(user.id, req.body)
-            .then(res.redirect("/main"))
+            // Fill input
+            if( !name || !email || !password) {
+                errors.push({ msg: "Fill all fileds"})
+            }
+
+            // password length
+            if(password.length > 6) {
+                errors.push({ msg: "Password should be 6 characters"})
+            }
+            
+            // errors length
+            if(errors.length > 0){
+                res.render("config", {
+                    errors,
+                    user
+                })
+            } else {
+                userDAO.updateOne(user.id, req.body)
+                    .then(res.redirect("/main"))
+            }
         })
 }
 
