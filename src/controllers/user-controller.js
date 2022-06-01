@@ -5,6 +5,9 @@ const bcrypt = require("bcrypt")
 
 const jwt = require("jsonwebtoken")
 
+// Nodemailer
+const transporter = require("../config/mailer")
+
 async function register(req, res) {
     const { name, email, phone, password, password2 } = req.body
     const errors = []
@@ -114,6 +117,52 @@ async function editUser(req, res) {
         })
 }
 
+async function recoveryUser(req, res) {
+    const { email } = req.body
+    await userDAO.getByEmail(email)
+        .then(user => {
+            transporter.sendMail({
+                from: '"Forgot password 👻" coderHouse-final-project', // sender address
+                to: user.email, // list of receivers
+                subject: "Forgot password", // Subject line
+                html: `
+                    <h3>You dumb! dont forget your password</h3>
+                    <a href="http://localhost:8080/user/password/${user.id}">Recover my account</a>
+                `, // html body
+            }).then(() => {
+                res.redirect("/")
+            })
+        })
+}
+
+async function newPassword(req, res) {
+    const { password, password2 } = req.body
+    const errors = []
+
+    userDAO.getOneById(req.params.id)
+            .then(user => {
+                // password length
+                if(password > 6) {
+                errors.push({ msg: "Password should be at least 6 characters" })
+                }
+
+                // isEqual
+                if(password !== password2) {
+                errors.push({ msg: "passwords needs to be equal" })
+                }
+
+                if(errors > 0) {
+                    res.render("password", {
+                        errors,
+                        user
+                    })
+                } else {
+                    userDAO.newPassword(user.id, password)
+                        .then(res.redirect("/"))
+                }
+            })
+}
+
 async function deleteUser(req, res) {
     await userDAO.deleteOne(res.cookies.user)
         .then(result => {
@@ -133,5 +182,7 @@ module.exports = {
     login,
     editUser,
     deleteUser,
-    logOut
+    logOut,
+    newPassword,
+    recoveryUser
 }

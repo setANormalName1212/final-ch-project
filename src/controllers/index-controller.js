@@ -62,6 +62,19 @@ async function buy(req, res) {
     res.render("buy")
 }
 
+async function recovery(req, res) {
+    res.render("recovery")
+}
+
+async function recoveryPassword(req, res) {
+    await userDAO.getOneById(req.params.id)
+        .then((user) => {
+            res.render("password", {
+                user
+            })
+        })
+}
+
 module.exports = {
     index,
     main,
@@ -70,5 +83,7 @@ module.exports = {
     dashboard,
     product,
     chat,
-    buy
+    buy,
+    recovery,
+    recoveryPassword
 }
