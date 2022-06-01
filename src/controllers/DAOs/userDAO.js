@@ -107,6 +107,22 @@ class userDAO {
             throw e
         }
     }
+
+    async newPassword(id, password) {
+        try{
+            bcrypt.genSalt(10, (err, salt) => {
+                bcrypt.hash(password, salt, async (err, hash) => {
+                    if(err) throw err
+
+                    // hash
+                    password = hash
+                    await userDB.updateOne({ _id: id }, { password: password})
+                })
+            })
+        } catch(e) {
+            throw e
+        }
+    }
 }
 
 const user = new userDAO()

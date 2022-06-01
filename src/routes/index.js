@@ -2,7 +2,7 @@ const express = require("express")
 const router = express.Router()
 
 // controllers
-const { index, main, edit, config, dashboard, product, chat, buy } = require("../controllers/index-controller")
+const { index, main, edit, config, dashboard, product, chat, buy, recovery, recoveryPassword } = require("../controllers/index-controller")
 
 // cookies
 const { cookies } = require("../controllers/cookies/cookies")
@@ -30,5 +30,11 @@ router.get("/chat", chat)
 
 // Buy
 router.get("/cart/buy", buy)
+
+// Recovery account
+router.get("/user/recovery", recovery)
+
+// Re write password
+router.get("/user/password/:id", recoveryPassword)
 
 module.exports = router
