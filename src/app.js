@@ -52,23 +52,6 @@ const cluster = require("cluster")
 const numCPUs = require('os').cpus().length
 const PORT = process.env.PORT || 8080
 
-/*if(cluster.isMaster) {
-    console.log(`Master ${process.pid} is running`)
-
-    // workers
-    for(let i = 0; i < numCPUs; i++) {
-        cluster.fork()
-    }
-
-    cluster.on('exit', (worker, code, signal) => {
-        console.log(`worker ${worker.process.pid} died`)
-    })
-} else {
-        app.listen(PORT, () => {
-        console.log(`Server running on port ${PORT}`)
-    })
-}*/
-
 server.listen(PORT, () => {
     console.log(`Server running on port: ${PORT}`)
 })

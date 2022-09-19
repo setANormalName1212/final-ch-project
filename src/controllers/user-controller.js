@@ -66,7 +66,14 @@ async function login(req, res) {
     } else {
         await userDAO.getByEmail(email)
             .then(user => {
-                if(user.email) {
+                if(!user) {
+                    errors.push({ msg: 'User dont exist' })
+                    res.render("index", {
+                        errors,
+                        email,
+                        password
+                    })
+                } else {
                     bcrypt.compare(password, user.password, (err, isMatch) => {
                         if(isMatch) {
                             const accessToken = jwt.sign(user.id, process.env.ACCESS_TOKEN_SECRET)
@@ -75,13 +82,6 @@ async function login(req, res) {
                         } else {
                             res.redirect("/")
                         }
-                    })
-                } else {
-                    errors.push({ msg: 'User dont exist' })
-                    res.render("index", {
-                         errors,
-                         email,
-                         password
                     })
                 }
             })
